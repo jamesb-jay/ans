@@ -1,5 +1,6 @@
-AnotherStage\.vs
-AnotherStage\AnotherStage.sln
-AnotherStage\AnotherStage.vcxproj.filters
-AnotherStage\AnotherStage.vcxproj.user
-AnotherStage\x64
+AnotherStage/.vs
+AnotherStage/AnotherStage.sln
+AnotherStage/AnotherStage.vcxproj
+AnotherStage/AnotherStage.vcxproj.filters
+AnotherStage/AnotherStage.vcxproj.user
+AnotherStage/x64
