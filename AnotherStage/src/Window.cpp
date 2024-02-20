@@ -25,6 +25,16 @@ Window::~Window()
 	SDL_Quit();
 }
 
+void Window::sendEvent(SDL_Event e)
+{
+	list<Entity>::iterator entityIterator;
+
+	for (entityIterator = entities.begin(); entityIterator != entities.end(); ++entityIterator)
+	{
+		entityIterator->handle(e);
+	}
+}
+
 void Window::init()
 {
 
@@ -67,6 +77,41 @@ void Window::start()
 
 	SDL_UpdateWindowSurface(sdl_window);
 
-	SDL_Event e; bool quit = false; while (quit == false) { while (SDL_PollEvent(&e)) { if (e.type == SDL_QUIT) quit = true; } }
-		logInfo("Loop exited.");
+	while (running)
+	{
+		update();
+		draw();
+	}
+
+	logInfo("Loop exited.");
 }
+
+void Window::update()
+{
+	SDL_Event event;
+	list<Entity>::iterator entityIterator;
+
+	if (SDL_PollEvent(&event))
+	{
+		if (event.type == SDL_QUIT)
+			running = false;
+		sendEvent(event);
+	}
+
+	for (entityIterator = entities.begin(); entityIterator != entities.end(); ++entityIterator)
+	{
+		entityIterator->update();
+	}
+}
+
+void Window::draw()
+{
+	list<Entity>::iterator entityIterator;
+
+	for (entityIterator = entities.begin(); entityIterator != entities.end(); ++entityIterator)
+	{
+		entityIterator->draw(sdl_surface);
+	}
+}
+
+
